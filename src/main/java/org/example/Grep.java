@@ -22,8 +22,7 @@ public class Grep {
             this.word = word;
         this.fileName = fileName;
     }
-    public void findLines() throws FileNotFoundException {
-        List<String> out = new ArrayList<>();
+    public void findLines() {
         try (FileReader fin = new FileReader(fileName);
             BufferedReader buffer = new BufferedReader(fin)) {
             String str;
@@ -32,10 +31,10 @@ public class Grep {
                 if (regex) {
                     Pattern pattern = Pattern.compile(word);
                     Matcher matcher = pattern.matcher(iStr);
-                    if (!invert && matcher.find())
+                    if (!invert && matcher.find() || invert && !matcher.find())
                         System.out.println(str);
                 } else {
-                    if (!invert && iStr.contains(word))
+                    if (!invert && iStr.contains(word) || invert && !iStr.contains(word))
                         System.out.println(str);
                 }
             }
