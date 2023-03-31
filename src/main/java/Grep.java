@@ -1,8 +1,4 @@
-package org.example;
-
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,7 +18,8 @@ public class Grep {
             this.word = word;
         this.fileName = fileName;
     }
-    public void findLines() {
+    public String findLines() {
+        StringBuilder out = new StringBuilder();
         try (FileReader fin = new FileReader(fileName);
             BufferedReader buffer = new BufferedReader(fin)) {
             String str;
@@ -31,15 +28,20 @@ public class Grep {
                 if (regex) {
                     Pattern pattern = Pattern.compile(word);
                     Matcher matcher = pattern.matcher(iStr);
-                    if (!invert && matcher.find() || invert && !matcher.find())
-                        System.out.println(str);
+                    if (!invert && matcher.find() || invert && !matcher.find()) {
+                        out.append(str);
+                        out.append('\n');
+                    }
                 } else {
-                    if (!invert && iStr.contains(word) || invert && !iStr.contains(word))
-                        System.out.println(str);
+                    if (!invert && iStr.contains(word) || invert && !iStr.contains(word)) {
+                        out.append(str);
+                        out.append('\n');
+                    }
                 }
             }
         } catch (IOException e) {
             System.err.println("Ошибка ввода-вывода");
         }
+        return out.toString();
     }
 }

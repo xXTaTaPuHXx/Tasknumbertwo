@@ -1,13 +1,9 @@
-package org.example;
-
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.spi.StringArrayOptionHandler;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -24,11 +20,11 @@ public class Main {
     @Argument(handler = StringArrayOptionHandler.class, required = true)
     private List<String> arguments;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new Main().doMain(args);
     }
 
-    public void doMain(String[] args) throws IOException {
+    public void doMain(String[] args) {
         CmdLineParser parser = new CmdLineParser(this);
         String word;
         String fileName;
@@ -44,7 +40,6 @@ public class Main {
             parser.printUsage(System.err);
             return;
         }
-        System.out.println(fileName);
-        new Grep(ignore, invert, regex, word, fileName).findLines();
+        System.out.println(new Grep(ignore, invert, regex, word, fileName).findLines());
     }
 }
