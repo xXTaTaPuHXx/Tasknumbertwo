@@ -6,7 +6,7 @@ import org.kohsuke.args4j.spi.StringArrayOptionHandler;
 
 import java.util.List;
 
-public class Main {
+public class MainFun {
 
     @Option(name = "-v", usage = "inverts filter condition")
     private boolean invert;
@@ -21,7 +21,7 @@ public class Main {
     private List<String> arguments;
 
     public static void main(String[] args) {
-        new Main().doMain(args);
+        new MainFun().doMain(args);
     }
 
     public void doMain(String[] args) {
